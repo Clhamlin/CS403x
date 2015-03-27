@@ -67,6 +67,65 @@
     android:layout_marginRight="16dp"
     android:text="@string/crime_solved_label"
     />
+
+    <TextView
+        android:id="@+id/images_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="15dp"
+        android:text="@string/crime_images_label"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+    />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+    >
+        <ImageView
+            android:id="@+id/previous_image_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_launcher"
+        />
+        <ImageView
+            android:id="@+id/previous_image_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_launcher"
+        />
+        <ImageView
+            android:id="@+id/previous_image_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/ic_launcher"
+        />
+
+    </LinearLayout>
+    <Button android:id="@+id/delete_images"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/delete_images"
+        />
+
 </LinearLayout>
 
-<!-- From: file:/C:/Users/cassie/Desktop/AndroidProgramming2/CriminalIntent/app/src/main/res/layout/fragment_crime.xml -->
+<!-- From: file:/C:/Users/cassie/Documents/GitHub/CS403x/CriminalIntent20/app/src/main/res/layout/fragment_crime.xml -->

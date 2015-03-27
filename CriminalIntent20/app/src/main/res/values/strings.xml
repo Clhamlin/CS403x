@@ -6,6 +6,7 @@
   <string name="crime_title_label">Title</string> 
   <string name="crime_details_label">Details</string> 
   <string name="crime_solved_label">Solved?</string>
+  <string name="crime_images_label">Previous Images</string>
   <string name="date_picker_title">Date of crime:</string>
   <string name="crimes_title">Crimes</string>
   <string name="new_crime">New Crime</string>
@@ -13,6 +14,7 @@
   <string name="hide_subtitle">Hide Subtitle</string> 
   <string name="subtitle">Sometimes tolerance is not a virtue.</string>
   <string name="delete_crime">Delete Crime</string>
+  <string name="delete_images">DELETE ALL IMAGES</string>
   <string name="take">Take!</string>
     
 </resources>
