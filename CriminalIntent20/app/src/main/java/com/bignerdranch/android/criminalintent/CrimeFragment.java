@@ -40,6 +40,13 @@ public class CrimeFragment extends Fragment {
     CheckBox mSolvedCheckBox;
     ImageButton mPhotoButton;
     ImageView mPhotoView;
+    ImageView prevPhotoView1;
+    ImageView prevPhotoView2;
+    ImageView prevPhotoView3;
+    Button mDeletePhotosButton;
+
+
+
 
     public static CrimeFragment newInstance(UUID crimeId) {
         Bundle args = new Bundle();
@@ -54,10 +61,9 @@ public class CrimeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         UUID crimeId = (UUID)getArguments().getSerializable(EXTRA_CRIME_ID);
         mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
-
         setHasOptionsMenu(true);
     }
 
@@ -69,11 +75,11 @@ public class CrimeFragment extends Fragment {
     @TargetApi(11)
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_crime, parent, false);
- 
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        
+
         mTitleField = (EditText)v.findViewById(R.id.crime_title);
         mTitleField.setText(mCrime.getTitle());
         mTitleField.addTextChangedListener(new TextWatcher() {
@@ -89,7 +95,7 @@ public class CrimeFragment extends Fragment {
                 // this one too
             }
         });
-        
+
         mDateButton = (Button)v.findViewById(R.id.crime_date);
         updateDate();
         mDateButton.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +108,7 @@ public class CrimeFragment extends Fragment {
                 dialog.show(fm, DIALOG_DATE);
             }
         });
-        
+
         mSolvedCheckBox = (CheckBox)v.findViewById(R.id.crime_solved);
         mSolvedCheckBox.setChecked(mCrime.isSolved());
         mSolvedCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -115,12 +121,13 @@ public class CrimeFragment extends Fragment {
         mPhotoButton = (ImageButton)v.findViewById(R.id.crime_imageButton);
         mPhotoButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
                 // launch the camera activity
                 Intent i = new Intent(getActivity(), CrimeCameraActivity.class);
                 startActivityForResult(i, REQUEST_PHOTO);
             }
         });
-        
+
         // if camera is not available, disable camera functionality
         PackageManager pm = getActivity().getPackageManager();
         if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) &&
@@ -132,7 +139,7 @@ public class CrimeFragment extends Fragment {
         mPhotoView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Photo p = mCrime.getPhoto();
-                if (p == null) 
+                if (p == null)
                     return;
 
                 FragmentManager fm = getActivity()
@@ -143,9 +150,24 @@ public class CrimeFragment extends Fragment {
                     .show(fm, DIALOG_IMAGE);
             }
         });
-        
-        
-        return v; 
+
+
+        prevPhotoView1 = (ImageView)v.findViewById(R.id.previous_image_1);
+        prevPhotoView2 = (ImageView)v.findViewById(R.id.previous_image_2);
+        prevPhotoView3 = (ImageView)v.findViewById(R.id.previous_image_3);
+
+        mDeletePhotosButton = (Button)v.findViewById(R.id.delete_images);
+        mDeletePhotosButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mCrime.setPhoto(null);
+                mCrime.setPrevPhoto1(null);
+                mCrime.setPrevPhoto2(null);
+                mCrime.setPrevPhoto3(null);
+                //showPhoto();
+            }
+        });
+
+        return v;
     }
     
     private void showPhoto() {
@@ -158,7 +180,38 @@ public class CrimeFragment extends Fragment {
             b = PictureUtils.getScaledDrawable(getActivity(), path);
         }
         mPhotoView.setImageDrawable(b);
+
+
+        Photo prev1 = mCrime.getPrevPhoto1();
+        BitmapDrawable b1 = null;
+        if (prev1 != null) {
+            String path = getActivity()
+                    .getFileStreamPath(prev1.getFilename()).getAbsolutePath();
+            b1 = PictureUtils.getScaledDrawable(getActivity(), path);
+        }
+        prevPhotoView1.setImageDrawable(b1);
+
+        Photo prev2 = mCrime.getPrevPhoto2();
+        BitmapDrawable b2 = null;
+        if (prev2 != null) {
+            String path = getActivity()
+                    .getFileStreamPath(prev2.getFilename()).getAbsolutePath();
+            b2 = PictureUtils.getScaledDrawable(getActivity(), path);
+        }
+        prevPhotoView2.setImageDrawable(b2);
+
+
+        Photo prev3 = mCrime.getPrevPhoto3();
+        BitmapDrawable b3 = null;
+        if (prev3 != null) {
+            String path = getActivity()
+                    .getFileStreamPath(prev3.getFilename()).getAbsolutePath();
+            b3 = PictureUtils.getScaledDrawable(getActivity(), path);
+        }
+        prevPhotoView3.setImageDrawable(b3);
     }
+
+
 
     @Override
     public void onStart() {
@@ -170,6 +223,9 @@ public class CrimeFragment extends Fragment {
     public void onStop() {
         super.onStop();
         PictureUtils.cleanImageView(mPhotoView);
+        PictureUtils.cleanImageView(prevPhotoView1);
+        PictureUtils.cleanImageView(prevPhotoView2);
+        PictureUtils.cleanImageView(prevPhotoView3);
     }
 
     
@@ -185,8 +241,15 @@ public class CrimeFragment extends Fragment {
             String filename = data
                 .getStringExtra(CrimeCameraFragment.EXTRA_PHOTO_FILENAME);
             if (filename != null) {
+                Photo origPhoto = mCrime.getPhoto();
+                Photo origPrev1 = mCrime.getPrevPhoto1();
+                Photo origPrev2 = mCrime.getPrevPhoto2();
                 Photo p = new Photo(filename);
+                mCrime.setPrevPhoto3 (origPrev2);
+                mCrime.setPrevPhoto2(origPrev1);
+                mCrime.setPrevPhoto1(origPhoto);
                 mCrime.setPhoto(p);
+
                 showPhoto();
             }
         }

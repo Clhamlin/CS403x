@@ -55,27 +55,31 @@ ADDED from AndroidManifest.xml:19:9
 		ADDED from AndroidManifest.xml:19:19
 activity#com.bignerdranch.android.criminalintent.CrimeActivity
 ADDED from AndroidManifest.xml:22:5
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:25:7
 	android:label
 		ADDED from AndroidManifest.xml:24:7
 	android:name
 		ADDED from AndroidManifest.xml:23:7
 meta-data#android.support.PARENT_ACTIVITY
-ADDED from AndroidManifest.xml:25:7
+ADDED from AndroidManifest.xml:26:7
 	android:name
-		ADDED from AndroidManifest.xml:25:18
+		ADDED from AndroidManifest.xml:26:18
 	android:value
-		ADDED from AndroidManifest.xml:26:9
+		ADDED from AndroidManifest.xml:27:9
 activity#com.bignerdranch.android.criminalintent.CrimePagerActivity
-ADDED from AndroidManifest.xml:28:5
-	android:label
-		ADDED from AndroidManifest.xml:29:7
-	android:name
-		ADDED from AndroidManifest.xml:28:15
-activity#com.bignerdranch.android.criminalintent.CrimeCameraActivity
-ADDED from AndroidManifest.xml:34:5
+ADDED from AndroidManifest.xml:29:5
 	android:screenOrientation
-		ADDED from AndroidManifest.xml:35:7
+		ADDED from AndroidManifest.xml:31:9
 	android:label
-		ADDED from AndroidManifest.xml:36:7
+		ADDED from AndroidManifest.xml:30:7
 	android:name
-		ADDED from AndroidManifest.xml:34:15
+		ADDED from AndroidManifest.xml:29:15
+activity#com.bignerdranch.android.criminalintent.CrimeCameraActivity
+ADDED from AndroidManifest.xml:36:5
+	android:screenOrientation
+		ADDED from AndroidManifest.xml:37:7
+	android:label
+		ADDED from AndroidManifest.xml:38:7
+	android:name
+		ADDED from AndroidManifest.xml:36:15
